@@ -13,4 +13,4 @@ for (int i = 0; i < hash.length; i++) {
     hexString.append(hex);
 }
 String hexPassword = hexString.toString();
-return hexPassword;
+return { result:0, data: hexPassword };
