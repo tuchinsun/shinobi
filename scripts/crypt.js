@@ -1,7 +1,7 @@
 import java.security.MessageDigest;
 import java.lang.*;
 
-var base = ${globals.super.pass};
+var base = hivext.local.GetParam("base");
 System.out.println(base.toString());
 MessageDigest digest = MessageDigest.getInstance("SHA-256");
 byte[] hash = digest.digest(base.getBytes("UTF-8"));
