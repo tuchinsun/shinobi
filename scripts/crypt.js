@@ -1,2 +1,4 @@
 
-return hivext.local.GetParam("base");
+return {
+   result:0
+};
