@@ -1,0 +1,48 @@
+type: install
+name: Shinobi CCIO
+id: 
+description: Shinobi is a NVR with a real-time object detection
+logo: /images/favicon.ico
+baseUrl: https://raw.githubusercontent.com/tuchinsun/shinobi/master
+
+globals:
+  super:
+    - mail: ${user.email}
+      pass: ${fn.password(9)}
+  api_priv:
+    auth_socket: 1
+    get_monitors: 1
+    control_monitors: 1
+    get_logs: 1
+    watch_stream: 1
+    watch_snapshot: 1
+    watch_videos: 1
+    delete_videos: 1
+
+#nodes:
+#    nodeType: docker
+#    displayName: Shinobi CCIO
+#    cloudlets: 12
+#    image: shinobicctv/shinobi
+
+onInstall:
+ test:
+    script: |
+        import java.security.MessageDigest;
+        import java.lang.*;
+        
+        var base = ${globals.super.pass};
+        System.out.println(base.toString());
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(base.getBytes("UTF-8"));
+        StringBuilder hexString = new StringBuilder();
+        for (int i = 0; i < hash.length; i++) {
+            final String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1)
+              hexString.append('0');
+            hexString.append(hex);
+        }
+        String hexPassword = hexString.toString();
+        return hexPassword;
+        
+success: OK
